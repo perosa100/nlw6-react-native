@@ -1,21 +1,30 @@
-import 'react-native-gesture-handler'
 import React from 'react'
-import { ThemeProvider } from 'styled-components/native'
-import { theme } from './src/styles/theme'
-import AppLoading from 'expo-app-loading'
-
+import { StatusBar, LogBox } from 'react-native'
+import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter'
 import {
-  useFonts,
-  Jost_400Regular,
-  Jost_600SemiBold
-} from '@expo-google-fonts/jost'
+  Rajdhani_500Medium,
+  Rajdhani_700Bold
+} from '@expo-google-fonts/rajdhani'
+import AppLoading from 'expo-app-loading'
+import { useFonts } from 'expo-font'
 
+LogBox.ignoreLogs([
+  'You are not currently signed in to Expo on your development machine.'
+])
+
+//import { Routes } from './src/routes';
 import { SignIn } from './src/screens/SignIn'
+import { theme } from './src/styles/theme'
+import { ThemeProvider } from 'styled-components/native'
+import { Background } from './src/components/Background'
+import { Home } from './src/screens/Home/index'
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    Jost_400Regular,
-    Jost_600SemiBold
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Rajdhani_500Medium,
+    Rajdhani_700Bold
   })
 
   if (!fontsLoaded) {
@@ -24,7 +33,14 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SignIn />
+      <Background>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+        <Home />
+      </Background>
     </ThemeProvider>
   )
 }
